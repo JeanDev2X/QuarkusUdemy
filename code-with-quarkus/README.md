@@ -48,6 +48,11 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ```shell script
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
 ```
+Windos
+```shell script
+./mvnw package -Dnative -D"quarkus.native.container-build=true"
+```
+
 
 You can then execute your native executable with: `./target/code-with-quarkus-1.0.0-SNAPSHOT-runner`
 
