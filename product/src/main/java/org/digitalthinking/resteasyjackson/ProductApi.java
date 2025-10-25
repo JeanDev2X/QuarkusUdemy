@@ -16,39 +16,40 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProductApi {
- @Inject
+
+    @Inject
     ProductRepository pr;
 
     @GET
     public List<Product> list() {
-        return pr.listProduct();
+        return pr.findAll();
     }
 
     @GET
     @Path("/{Id}")
     public Product getById(@PathParam("Id") Long Id) {
-        return pr.findProduct(Id);
+        return pr.findById(Id).get();
     }
 
     @POST
     public Response add(Product p) {
-        pr.createdProduct(p);
+        pr.save(p);
         return Response.ok().build();
     }
 
     @DELETE
     @Path("/{Id}")
     public Response delete(@PathParam("Id") Long Id) {
-         pr.deleteProduct( pr.findProduct(Id));
+        pr.delete( pr.findById(Id).get());
         return Response.ok().build();
     }
     @PUT
     public Response update(Product p) {
-        Product product = pr.findProduct(p.getId());
+        Product product = pr.findById(p.getId()).get();
         product.setCode(p.getCode());
         product.setName(p.getName());
         product.setDescription(p.getDescription());
-        pr.updateProduct(product);
+        pr.save(product);
         return Response.ok().build();
     }
 
